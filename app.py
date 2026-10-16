@@ -49,7 +49,7 @@ def init_db():
             con.execute("INSERT OR IGNORE INTO settings(key,value) VALUES(?,?)",(k,v))
         for name in ["চাল ও ডাল","তেল ও মশলা","প্যাকেটজাত খাবার","বেভারেজ","বিস্কুট ও স্ন্যাকস","গৃহস্থালি","ফল ও সবজি"]:
             con.execute("INSERT OR IGNORE INTO categories(name) VALUES(?)",(name,))
-        if not con.execute("SELECT id FROM settings WHERE key='admin_hash'").fetchone():
+if not con.execute("SELECT key FROM settings WHERE key='admin_hash'").fetchone():
             con.execute("INSERT OR REPLACE INTO settings(key,value) VALUES('admin_hash',?)",(generate_password_hash("ChangeMe123!"),))
         if con.execute("SELECT COUNT(*) FROM products").fetchone()[0] == 0:
             seeds = [
